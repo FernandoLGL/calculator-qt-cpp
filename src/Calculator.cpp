@@ -6,6 +6,7 @@ Calculator::Calculator(QWidget *parent)
     , ui(new Ui::Calculator)
 {
     ui->setupUi(this);
+    connect(ui->resultado, &QLineEdit::returnPressed, this, &Calculator::returnPressed);
 }
 
 Calculator::~Calculator()
@@ -13,3 +14,9 @@ Calculator::~Calculator()
     delete ui;
 }
 
+
+void Calculator::returnPressed()
+{
+    double resultadoParcial {ui->resultado->text().toDouble()};
+    ui->resultado->setText(QString::number(resultadoParcial));
+}
