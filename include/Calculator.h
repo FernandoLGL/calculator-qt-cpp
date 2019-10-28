@@ -16,9 +16,20 @@ public:
     ~Calculator();
 
 private slots:
-    void returnPressed();
+    void oneClicked();
+    void twoClicked();
+    void threeClicked();
+    void fourClicked();
+    void fiveClicked();
+    void sixClicked();
+    void sevenClicked();
+    void eightClicked();
+    void nineClicked();
+    void zeroClicked();
+
 
 private:
     Ui::Calculator *ui;
+    void numberClicked(const QString &number);
 };
 #endif // CALCULATOR_H
