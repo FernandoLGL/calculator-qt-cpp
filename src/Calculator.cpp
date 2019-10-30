@@ -18,6 +18,10 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->pushButton_8, &QPushButton::clicked, this, &Calculator::eightClicked);
     connect(ui->pushButton_9, &QPushButton::clicked, this, &Calculator::nineClicked);
     connect(ui->pushButton_0, &QPushButton::clicked, this, &Calculator::zeroClicked);
+    connect(ui->pushButton_adicao, &QPushButton::clicked, this, &Calculator::addClicked);
+    connect(ui->pushButton_divisao, &QPushButton::clicked, this, &Calculator::divClicked);
+    connect(ui->pushButton_subtracao, &QPushButton::clicked, this, &Calculator::subClicked);
+    connect(ui->pushButton_multiplicacao, &QPushButton::clicked, this, &Calculator::multClicked);
 }
 
 Calculator::~Calculator()
@@ -33,6 +37,10 @@ void Calculator::numberClicked(const QString &number){
         return;
     }
     ui->resultado->setText(previousResult += number);
+}
+
+void Calculator::operationClicked(const QString &operation){
+    ui->displayOperacao->setText(operation);
 }
 
 void Calculator::oneClicked(){
@@ -65,4 +73,17 @@ void Calculator::nineClicked(){
 }
 void Calculator::zeroClicked(){
     numberClicked("0");
+}
+
+void Calculator::addClicked(){
+    operationClicked("+");
+}
+void Calculator::subClicked(){
+    operationClicked("-");
+}
+void Calculator::divClicked(){
+    operationClicked("/");
+}
+void Calculator::multClicked(){
+    operationClicked("X");
 }
