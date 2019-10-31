@@ -15,13 +15,6 @@ public:
     Calculator(QWidget *parent = nullptr);
     ~Calculator();
 
-    enum Operation{
-        ADD,
-        SUBTRACT,
-        MULTIPLY,
-        DIVIDE,
-    };
-
 private slots:
     void oneClicked();
     void twoClicked();
@@ -43,7 +36,6 @@ private slots:
     //clicking the "=" button
     void evaluate();
     void clearResult();
-
 
 private:
     Ui::Calculator *ui;

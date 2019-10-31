@@ -14,8 +14,8 @@ Calculator::Calculator(QWidget *parent)
     , m_firstOperand(0.0)
     , m_secondOperand(0.0)
     , m_ans(false)
-    , m_lastOperationsBeforeClear()
     , m_hist(false)
+    , m_lastOperationsBeforeClear()
 {
     ui->setupUi(this);
     connect(ui->pushButton_1, &QPushButton::clicked, this, &Calculator::oneClicked);
@@ -47,6 +47,7 @@ Calculator::~Calculator()
 void Calculator::clearResult(){
     ui->resultado->setText("0.0");
     ui->displayOperacao->setText("");
+    m_lastOperationsBeforeClear="";
 }
 
 void Calculator::histClicked(){
@@ -64,6 +65,8 @@ void Calculator::histClicked(){
 void Calculator::evaluate(){
     //can't end with "."
     if(ui->resultado->text().back() == '.') return;
+    // in case the user keeps pressing "="
+    if(m_resultShown) return;
 
     QString result;
     m_secondOperand = ui->resultado->text().toDouble();
@@ -82,15 +85,9 @@ void Calculator::evaluate(){
         result = QString::number(m_firstOperand / m_secondOperand);
         break;
     }
-    m_lastOperationsBeforeClear += QString::number(m_firstOperand) + op + QString::number(m_secondOperand);
+    m_lastOperationsBeforeClear += QString::number(m_firstOperand)+ ' ' + op + ' ' + QString::number(m_secondOperand);
     ui->resultado->setText(result);
-    if(m_ans){
-        m_firstOperand = result.toDouble();
-        m_inputDone = true;
-        m_ans = false;
-        m_resultShown=false;
-        return;
-    }
+    m_ans=false;
     m_inputDone=false;
     m_resultShown=true;
     return;
@@ -119,7 +116,11 @@ void Calculator::numberClicked(const QString &number){
 }
 
 void Calculator::ansClicked(){
+    m_lastOperationsBeforeClear+= " ANS ";
     m_ans = true;
+    m_resultShown=false;
+    m_hist = false;
+    m_firstOperand = ui->resultado->text().toDouble();
 }
 
 void Calculator::dotClicked(){
