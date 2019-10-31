@@ -13,6 +13,7 @@ Calculator::Calculator(QWidget *parent)
     , m_resultShown(false)
     , m_firstOperand(0.0)
     , m_secondOperand(0.0)
+    , m_ans(false)
 {
     ui->setupUi(this);
     connect(ui->pushButton_1, &QPushButton::clicked, this, &Calculator::oneClicked);
@@ -32,6 +33,7 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->pushButton_igual, &QPushButton::clicked, this, &Calculator::evaluate);
     connect(ui->pushButton_Clear, &QPushButton::clicked, this, &Calculator::clearResult);
     connect(ui->pushButton_dot, &QPushButton::clicked, this, &Calculator::dotClicked);
+    connect(ui->pushButton_ans, &QPushButton::clicked, this, &Calculator::ansClicked);
 }
 
 Calculator::~Calculator()
@@ -54,20 +56,24 @@ void Calculator::evaluate(){
     switch(op.unicode()){
     case '+':
         result = QString::number(m_firstOperand + m_secondOperand);
-        ui->resultado->setText(result);
         break;
     case '-':
         result = QString::number(m_firstOperand - m_secondOperand);
-        ui->resultado->setText(result);
         break;
     case 'X':
         result = QString::number(m_firstOperand * m_secondOperand);
-        ui->resultado->setText(result);
         break;
     case '/':
         result = QString::number(m_firstOperand / m_secondOperand);
-        ui->resultado->setText(result);
         break;
+    }
+    ui->resultado->setText(result);
+    if(m_ans){
+        m_firstOperand = result.toDouble();
+        m_inputDone = true;
+        m_ans = false;
+        m_resultShown=false;
+        return;
     }
     m_inputDone=false;
     m_resultShown=true;
@@ -93,6 +99,10 @@ void Calculator::numberClicked(const QString &number){
     }
 
     ui->resultado->setText(previousResult += number);
+}
+
+void Calculator::ansClicked(){
+    m_ans = true;
 }
 
 void Calculator::dotClicked(){

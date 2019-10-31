@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>436</width>
+    <width>442</width>
     <height>537</height>
    </rect>
   </property>
@@ -259,6 +259,19 @@
       </property>
      </widget>
     </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="pushButton_ans">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>ANS</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -266,8 +279,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>436</width>
-     <height>23</height>
+     <width>442</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCalculator">
