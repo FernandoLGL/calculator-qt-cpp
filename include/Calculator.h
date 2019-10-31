@@ -19,6 +19,7 @@ public:
         INIT,
         INPUTTING,
         RESULT,
+        ANS,
     };
 
 private slots:

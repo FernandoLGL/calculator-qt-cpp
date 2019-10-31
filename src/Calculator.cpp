@@ -79,10 +79,13 @@ void Calculator::buttonClicked(const QString &textOnButton){
         m_state = INPUTTING;
         return;
     }
+    m_state = INPUTTING;
     ui->resultado->setText(previous+=textOnButton);
 }
 
 void Calculator::ansClicked(){
+    ui->resultado->setText(m_lastResult);
+    m_state = ANS;
 }
 
 void Calculator::dotClicked(){
