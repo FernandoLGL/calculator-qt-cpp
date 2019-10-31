@@ -49,6 +49,8 @@ private:
     Ui::Calculator *ui;
     QString m_lastOperationsBeforeClear;
     State m_state;
+    QString m_lastExpression;
+    QString m_lastResult;
 
 private:
     void buttonClicked(const QString &number);

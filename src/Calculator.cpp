@@ -7,6 +7,8 @@ Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Calculator)
     , m_state(INIT)
+    , m_lastExpression()
+    , m_lastResult()
 {
     ui->setupUi(this);
     connect(ui->pushButton_1, &QPushButton::clicked, this, &Calculator::oneClicked);
@@ -37,10 +39,12 @@ Calculator::~Calculator()
 }
 
 void Calculator::clearResult(){
+    ui->resultado->setText("0.0");
     m_state = INIT;
 }
 
 void Calculator::histClicked(){
+    ui->resultado->setText("Last result: " + m_lastExpression + " = " + m_lastResult);
     m_state = INIT;
 }
 
@@ -53,6 +57,7 @@ void Calculator::evaluate(){
     using expression_t = exprtk::expression<double>;
     using parser_t = exprtk::parser<double>;
 
+    m_lastExpression = ui->resultado->text();
     std::string expression_string = parseExpression(ui->resultado->text()).toStdString();
 
     expression_t expression;
@@ -64,6 +69,7 @@ void Calculator::evaluate(){
         double result = expression.value();
 
         ui->resultado->setText(QString::number(result));
+        m_lastResult = QString::number(result);
     }
     else{
         qDebug() << "Something's wrong with the expression";
