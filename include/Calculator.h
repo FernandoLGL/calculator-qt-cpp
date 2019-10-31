@@ -42,6 +42,8 @@ private slots:
     void ansClicked();
     void histClicked();
     void eraseClicked();
+    void openParenClicked();
+    void closeParenClicked();
     //clicking the "=" button
     void evaluate();
     void clearResult();

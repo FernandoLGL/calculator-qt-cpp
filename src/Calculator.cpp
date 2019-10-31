@@ -31,6 +31,8 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->pushButton_ans, &QPushButton::clicked, this, &Calculator::ansClicked);
     connect(ui->pushButton_hist, &QPushButton::clicked, this, &Calculator::histClicked);
     connect(ui->pushButton_erase, &QPushButton::clicked, this, &Calculator::eraseClicked);
+    connect(ui->pushButton_openParen, &QPushButton::clicked, this, &Calculator::openParenClicked);
+    connect(ui->pushButton_closeParen, &QPushButton::clicked, this, &Calculator::closeParenClicked);
 }
 
 Calculator::~Calculator()
@@ -131,21 +133,34 @@ void Calculator::nineClicked(){
 void Calculator::zeroClicked(){
     buttonClicked("0");
 }
-
+void Calculator::openParenClicked(){
+    buttonClicked("(");
+}
+void Calculator::closeParenClicked(){
+    buttonClicked(")");
+}
 void Calculator::addClicked(){
     if(lastIsOperator()) return;
+    // Operations can't be the first character
+    if(ui->resultado->text().isEmpty() || m_state == INIT || m_state == RESULT) return;
     buttonClicked("+");
 }
 void Calculator::subClicked(){
     if(lastIsOperator()) return;
+    // Operations can't be the first character
+    if(ui->resultado->text().isEmpty() || m_state == INIT || m_state == RESULT) return;
     buttonClicked("-");
 }
 void Calculator::divClicked(){
     if(lastIsOperator()) return;
+    // Operations can't be the first character
+    if(ui->resultado->text().isEmpty() || m_state == INIT || m_state == RESULT) return;
     buttonClicked("/");
 }
 void Calculator::multClicked(){
     if(lastIsOperator()) return;
+    // Operations can't be the first character
+    if(ui->resultado->text().isEmpty() || m_state == INIT || m_state == RESULT) return;
     buttonClicked("X");
 }
 bool Calculator::lastIsOperator(){
