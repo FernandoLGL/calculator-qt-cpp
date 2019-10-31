@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>579</width>
-    <height>438</height>
+    <width>436</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -246,6 +246,19 @@
       </property>
      </widget>
     </item>
+    <item row="6" column="3">
+     <widget class="QPushButton" name="pushButton_dot">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>.</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -253,8 +266,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>579</width>
-     <height>20</height>
+     <width>436</width>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCalculator">
