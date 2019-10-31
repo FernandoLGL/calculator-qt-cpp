@@ -165,7 +165,7 @@ void Calculator::multClicked(){
     if(lastIsOperator()) return;
     // Operations can't be the first character
     if(ui->resultado->text().isEmpty() || m_state == INIT || m_state == RESULT) return;
-    buttonClicked("X");
+    buttonClicked("x");
 }
 bool Calculator::lastIsOperator(){
     // Regex of the operators
