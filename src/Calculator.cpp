@@ -14,6 +14,8 @@ Calculator::Calculator(QWidget *parent)
     , m_firstOperand(0.0)
     , m_secondOperand(0.0)
     , m_ans(false)
+    , m_lastOperationsBeforeClear()
+    , m_hist(false)
 {
     ui->setupUi(this);
     connect(ui->pushButton_1, &QPushButton::clicked, this, &Calculator::oneClicked);
@@ -34,6 +36,7 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->pushButton_Clear, &QPushButton::clicked, this, &Calculator::clearResult);
     connect(ui->pushButton_dot, &QPushButton::clicked, this, &Calculator::dotClicked);
     connect(ui->pushButton_ans, &QPushButton::clicked, this, &Calculator::ansClicked);
+    connect(ui->pushButton_hist, &QPushButton::clicked, this, &Calculator::histClicked);
 }
 
 Calculator::~Calculator()
@@ -44,6 +47,18 @@ Calculator::~Calculator()
 void Calculator::clearResult(){
     ui->resultado->setText("0.0");
     ui->displayOperacao->setText("");
+}
+
+void Calculator::histClicked(){
+    if(!m_resultShown) return;
+    m_resultShown=false;
+    m_inputDone=false;
+    m_firstOperand=0.0;
+    m_secondOperand=0.0;
+    m_ans=false;
+
+    ui->resultado->setText(m_lastOperationsBeforeClear);
+    m_lastOperationsBeforeClear="";
 }
 
 void Calculator::evaluate(){
@@ -67,6 +82,7 @@ void Calculator::evaluate(){
         result = QString::number(m_firstOperand / m_secondOperand);
         break;
     }
+    m_lastOperationsBeforeClear += QString::number(m_firstOperand) + op + QString::number(m_secondOperand);
     ui->resultado->setText(result);
     if(m_ans){
         m_firstOperand = result.toDouble();
@@ -92,9 +108,10 @@ void Calculator::numberClicked(const QString &number){
 
     // previousResult = 0 in case the user pressed 0 first
     // this second "if" condition will be a problem now that the dot has been added to the calculator
-    if(m_resultShown || previousResult == "0.0" || previousResult == "0"){
+    if(m_hist ||m_resultShown || previousResult == "0.0" || previousResult == "0"){
         ui->resultado->setText(number);
         m_resultShown=false;
+        m_hist=false;
         return;
     }
 

@@ -39,6 +39,7 @@ private slots:
     void multClicked();
     void dotClicked();
     void ansClicked();
+    void histClicked();
     //clicking the "=" button
     void evaluate();
     void clearResult();
@@ -52,6 +53,8 @@ private:
     double m_firstOperand;
     double m_secondOperand;
     bool m_ans;
+    bool m_hist;
+    QString m_lastOperationsBeforeClear;
     void numberClicked(const QString &number);
     void operationClicked(const QString &operation);
 };
