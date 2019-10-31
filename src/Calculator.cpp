@@ -59,19 +59,20 @@ void Calculator::evaluate(){
     using expression_t = exprtk::expression<double>;
     using parser_t = exprtk::parser<double>;
 
-    m_lastExpression = ui->resultado->text();
     std::string expression_string = parseExpression(ui->resultado->text()).toStdString();
 
     expression_t expression;
 
+    QString tmp = ui->resultado->text();
+
     parser_t parser;
 
+    double result{};
     if (parser.compile(expression_string,expression))
     {
-        double result = expression.value();
+        result = expression.value();
 
         ui->resultado->setText(QString::number(result));
-        m_lastResult = QString::number(result);
     }
     else{
         ui->resultado->setText("ERROR");
@@ -79,6 +80,8 @@ void Calculator::evaluate(){
         return;
     }
 
+    m_lastExpression = tmp;
+    m_lastResult = QString::number(result);
     m_state = RESULT;
 }
 
@@ -94,6 +97,7 @@ void Calculator::buttonClicked(const QString &textOnButton){
 }
 
 void Calculator::ansClicked(){
+    if(m_state == ERROR || m_state == INIT) return;
     ui->resultado->setText(m_lastResult);
     m_state = ANS;
 }
@@ -174,6 +178,8 @@ bool Calculator::lastIsOperator(){
 void Calculator::eraseClicked(){
     // if we don't specify what happens when it's empty, the program crashes.
     if(ui->resultado->text().isEmpty()) return;
+    if(m_state == INIT || m_state == ERROR) return;
     QString previous = ui->resultado->text();
     ui->resultado->setText(previous.chopped(1));
+    m_state = INPUTTING;
 }
