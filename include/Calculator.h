@@ -39,13 +39,6 @@ private slots:
 
 private:
     Ui::Calculator *ui;
-    //these 3 will be gone once the calculator can deal with full expressions
-    bool m_inputDone;
-    bool m_resultShown;
-    double m_firstOperand;
-    double m_secondOperand;
-    bool m_ans;
-    bool m_hist;
     QString m_lastOperationsBeforeClear;
     void numberClicked(const QString &number);
     void operationClicked(const QString &operation);
