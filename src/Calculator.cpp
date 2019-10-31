@@ -1,5 +1,6 @@
 #include "Calculator.h"
 #include "ui_Calculator.h"
+#include "exprtk.hpp"
 #include <QDebug>
 
 Calculator::Calculator(QWidget *parent)
@@ -43,7 +44,31 @@ void Calculator::histClicked(){
     m_state = INIT;
 }
 
+QString parseExpression(QString expression){
+    expression.replace('X','*');
+    return expression;
+}
+
 void Calculator::evaluate(){
+    using expression_t = exprtk::expression<double>;
+    using parser_t = exprtk::parser<double>;
+
+    std::string expression_string = parseExpression(ui->resultado->text()).toStdString();
+
+    expression_t expression;
+
+    parser_t parser;
+
+    if (parser.compile(expression_string,expression))
+    {
+        double result = expression.value();
+
+        ui->resultado->setText(QString::number(result));
+    }
+    else{
+        qDebug() << "Something's wrong with the expression";
+    }
+
     m_state = RESULT;
 }
 
