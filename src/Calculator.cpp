@@ -72,7 +72,9 @@ void Calculator::evaluate(){
         m_lastResult = QString::number(result);
     }
     else{
-        qDebug() << "Something's wrong with the expression";
+        ui->resultado->setText("ERROR");
+        m_state = ERROR;
+        return;
     }
 
     m_state = RESULT;
@@ -80,7 +82,7 @@ void Calculator::evaluate(){
 
 void Calculator::buttonClicked(const QString &textOnButton){
     QString previous = ui->resultado->text();
-    if(m_state == INIT || m_state == RESULT){
+    if(m_state == INIT || m_state == RESULT || m_state == ERROR){
         ui->resultado->setText(textOnButton);
         m_state = INPUTTING;
         return;
@@ -154,8 +156,8 @@ bool Calculator::lastIsOperator(){
         return true;
     return false;
 }
-
 void Calculator::eraseClicked(){
+    // if we don't specify what happens when it's empty, the program crashes.
     if(ui->resultado->text().isEmpty()) return;
     QString previous = ui->resultado->text();
     ui->resultado->setText(previous.chopped(1));

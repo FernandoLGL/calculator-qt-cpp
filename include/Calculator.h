@@ -20,6 +20,7 @@ public:
         INPUTTING,
         RESULT,
         ANS,
+        ERROR,
     };
 
 private slots:
