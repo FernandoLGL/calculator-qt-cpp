@@ -1,14 +1,11 @@
 #include "Calculator.h"
 #include "ui_Calculator.h"
-
-/*
- * Warning: This is the most atrocious code I have ever written and I'll never touch this again, this was just to get used to Qt Creator.
- * I'll do a better calculator in the future.
- */
+#include <QDebug>
 
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Calculator)
+    , m_state(INIT)
 {
     ui->setupUi(this);
     connect(ui->pushButton_1, &QPushButton::clicked, this, &Calculator::oneClicked);
@@ -30,6 +27,7 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->pushButton_dot, &QPushButton::clicked, this, &Calculator::dotClicked);
     connect(ui->pushButton_ans, &QPushButton::clicked, this, &Calculator::ansClicked);
     connect(ui->pushButton_hist, &QPushButton::clicked, this, &Calculator::histClicked);
+    connect(ui->pushButton_erase, &QPushButton::clicked, this, &Calculator::eraseClicked);
 }
 
 Calculator::~Calculator()
@@ -38,67 +36,93 @@ Calculator::~Calculator()
 }
 
 void Calculator::clearResult(){
+    m_state = INIT;
 }
 
 void Calculator::histClicked(){
+    m_state = INIT;
 }
 
 void Calculator::evaluate(){
+    m_state = RESULT;
 }
 
-void Calculator::numberClicked(const QString &number){
+void Calculator::buttonClicked(const QString &textOnButton){
+    QString previous = ui->resultado->text();
+    if(m_state == INIT || m_state == RESULT){
+        ui->resultado->setText(textOnButton);
+        m_state = INPUTTING;
+        return;
+    }
+    ui->resultado->setText(previous+=textOnButton);
 }
 
 void Calculator::ansClicked(){
 }
 
 void Calculator::dotClicked(){
-}
-
-void Calculator::operationClicked(const QString &operation){
+    buttonClicked(".");
 }
 
 void Calculator::oneClicked(){
-    numberClicked("1");
+    buttonClicked("1");
 }
 
 void Calculator::twoClicked(){
-    numberClicked("2");
+    buttonClicked("2");
 }
 void Calculator::threeClicked(){
-    numberClicked("3");
+    buttonClicked("3");
 }
 void Calculator::fourClicked(){
-    numberClicked("4");
+    buttonClicked("4");
 }
 void Calculator::fiveClicked(){
-    numberClicked("5");
+    buttonClicked("5");
 }
 void Calculator::sixClicked(){
-    numberClicked("6");
+    buttonClicked("6");
 }
 void Calculator::sevenClicked(){
-    numberClicked("7");
+    buttonClicked("7");
 }
 void Calculator::eightClicked(){
-    numberClicked("8");
+    buttonClicked("8");
 }
 void Calculator::nineClicked(){
-    numberClicked("9");
+    buttonClicked("9");
 }
 void Calculator::zeroClicked(){
-    numberClicked("0");
+    buttonClicked("0");
 }
 
 void Calculator::addClicked(){
-    operationClicked("+");
+    if(lastIsOperator()) return;
+    buttonClicked("+");
 }
 void Calculator::subClicked(){
-    operationClicked("-");
+    if(lastIsOperator()) return;
+    buttonClicked("-");
 }
 void Calculator::divClicked(){
-    operationClicked("/");
+    if(lastIsOperator()) return;
+    buttonClicked("/");
 }
 void Calculator::multClicked(){
-    operationClicked("X");
+    if(lastIsOperator()) return;
+    buttonClicked("X");
+}
+bool Calculator::lastIsOperator(){
+    // Regex of the operators
+    QRegExp rx("[X+/-]");
+    // right(1) is the same as returning the last character (QChar) as a QString
+    if(rx.exactMatch(ui->resultado->text().right(1)))
+        return true;
+    return false;
+}
+
+void Calculator::eraseClicked(){
+    if(ui->resultado->text().isEmpty()) return;
+    QString previous = ui->resultado->text();
+    ui->resultado->setText(previous.chopped(1));
 }

@@ -15,6 +15,12 @@ public:
     Calculator(QWidget *parent = nullptr);
     ~Calculator();
 
+    enum State{
+        INIT,
+        INPUTTING,
+        RESULT,
+    };
+
 private slots:
     void oneClicked();
     void twoClicked();
@@ -33,6 +39,7 @@ private slots:
     void dotClicked();
     void ansClicked();
     void histClicked();
+    void eraseClicked();
     //clicking the "=" button
     void evaluate();
     void clearResult();
@@ -40,7 +47,10 @@ private slots:
 private:
     Ui::Calculator *ui;
     QString m_lastOperationsBeforeClear;
-    void numberClicked(const QString &number);
-    void operationClicked(const QString &operation);
+    State m_state;
+
+private:
+    void buttonClicked(const QString &number);
+    bool lastIsOperator();
 };
 #endif // CALCULATOR_H
