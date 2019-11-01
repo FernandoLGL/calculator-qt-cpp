@@ -181,7 +181,7 @@ void Calculator::sqrtClicked(){
 
 void Calculator::helpClicked()
 {
-    QMessageBox::about(this, "DON'T PANIC!", "Shortcuts: \n\nS - Sqrt(Square Root)\nA - ANS (last answer)\nC - Clear\nH - History\nP - this help window (stands for Panic)");
+    QMessageBox::about(this, "DON'T PANIC!", "Shortcuts: \n\nS - Sqrt(Square Root)\nA - ANS (last answer)\nC - Clear\nH - History\n(P)anic - This Help Window\n");
 }
 
 void Calculator::powerClicked()
