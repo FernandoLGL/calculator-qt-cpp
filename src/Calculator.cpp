@@ -3,6 +3,7 @@
 #include "exprtk.hpp"
 #include <QDebug>
 #include <QKeyEvent>
+#include <QMessageBox>
 
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
@@ -34,8 +35,9 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->pushButton_erase, &QPushButton::clicked, this, &Calculator::eraseClicked);
     connect(ui->pushButton_openParen, &QPushButton::clicked, this, &Calculator::openParenClicked);
     connect(ui->pushButton_closeParen, &QPushButton::clicked, this, &Calculator::closeParenClicked);
-    connect (ui->pushButton_power, &QPushButton::clicked, this, &Calculator::powerClicked);
+    connect(ui->pushButton_power, &QPushButton::clicked, this, &Calculator::powerClicked);
     connect(ui->pushButton_sqrt, &QPushButton::clicked, this, &Calculator::sqrtClicked);
+    connect(ui->pushButton_help, &QPushButton::clicked, this, &Calculator::helpClicked);
 }
 
 Calculator::~Calculator()
@@ -68,7 +70,7 @@ void Calculator::evaluate(){
 
     std::string expression_string = parseExpression(ui->resultado->text()).toStdString();
 
-    qDebug() << "Expressao pasada: " << QString::fromStdString(expression_string);
+    qDebug() << "Expressao passada: " << QString::fromStdString(expression_string);
     expression_t expression;
 
     QString tmp = ui->resultado->text();
@@ -175,6 +177,11 @@ void Calculator::sqrtClicked(){
     // Operations can't be the first character
     if(ui->resultado->text().isEmpty() || m_state == INIT || m_state == RESULT) return;
     buttonClicked("(sqrt)");
+}
+
+void Calculator::helpClicked()
+{
+    QMessageBox::about(this, "DON'T PANIC!", "Shortcuts: \n\nS - Sqrt(Square Root)\nA - ANS (last answer)\nC - Clear\nH - History\n");
 }
 
 void Calculator::powerClicked()
