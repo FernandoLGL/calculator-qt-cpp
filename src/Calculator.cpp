@@ -34,6 +34,7 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->pushButton_erase, &QPushButton::clicked, this, &Calculator::eraseClicked);
     connect(ui->pushButton_openParen, &QPushButton::clicked, this, &Calculator::openParenClicked);
     connect(ui->pushButton_closeParen, &QPushButton::clicked, this, &Calculator::closeParenClicked);
+    connect (ui->pushButton_power, &QPushButton::clicked, this, &Calculator::powerClicked);
 }
 
 Calculator::~Calculator()
@@ -57,6 +58,7 @@ QString parseExpression(QString expression){
 }
 
 void Calculator::evaluate(){
+    if(m_state == INIT) return;
     using expression_t = exprtk::expression<double>;
     using parser_t = exprtk::parser<double>;
 
@@ -164,6 +166,14 @@ void Calculator::openParenClicked(){
 void Calculator::closeParenClicked(){
     buttonClicked(")");
 }
+
+void Calculator::powerClicked()
+{
+    if(lastIsOperator()) return;
+    // Operations can't be the first character
+    if(ui->resultado->text().isEmpty() || m_state == INIT || m_state == RESULT) return;
+    buttonClicked("^");
+}
 void Calculator::addClicked(){
     if(lastIsOperator()) return;
     // Operations can't be the first character
@@ -190,7 +200,7 @@ void Calculator::multClicked(){
 }
 bool Calculator::lastIsOperator(){
     // Regex of the operators
-    QRegExp rx("[X+/-]");
+    QRegExp rx("[\\^x+/-]");
     // right(1) is the same as returning the last character (QChar) as a QString
     if(rx.exactMatch(ui->resultado->text().right(1)))
         return true;
@@ -211,6 +221,7 @@ void Calculator::eraseClicked(){
 }
 
 void Calculator::keyPressEvent(QKeyEvent *event){
+    qDebug() << event->key();
     switch(event->key()){
     case Qt::Key_0:
         zeroClicked();
@@ -280,6 +291,9 @@ void Calculator::keyPressEvent(QKeyEvent *event){
         break;
     case Qt::Key_C:
         clearResult();
+        break;
+    case Qt::Key_Dead_Circumflex:
+        powerClicked();
         break;
     }
 }

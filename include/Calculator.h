@@ -44,6 +44,8 @@ private slots:
     void eraseClicked();
     void openParenClicked();
     void closeParenClicked();
+    void powerClicked();
+    //void sqrtClicked();
     //clicking the "=" button
     void evaluate();
     void clearResult();
