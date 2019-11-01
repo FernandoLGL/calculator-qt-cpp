@@ -909,7 +909,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -1835,7 +1836,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -3225,7 +3227,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -3688,7 +3691,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -4615,7 +4619,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -5542,7 +5547,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -6932,7 +6938,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -7395,7 +7402,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -7858,7 +7866,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -8321,7 +8330,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
@@ -9248,9 +9258,10 @@
       </property>
       <property name="font">
        <font>
-        <family>Ani</family>
+        <family>Nakula</family>
         <pointsize>20</pointsize>
         <weight>50</weight>
+        <italic>false</italic>
         <bold>false</bold>
        </font>
       </property>
