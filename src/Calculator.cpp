@@ -181,5 +181,84 @@ void Calculator::eraseClicked(){
     if(m_state == INIT || m_state == ERROR) return;
     QString previous = ui->resultado->text();
     ui->resultado->setText(previous.chopped(1));
+    if(ui->resultado->text().isEmpty()){
+        ui->resultado->setText("0.0");
+        m_state = INIT;
+        return;
+    }
     m_state = INPUTTING;
+}
+
+void Calculator::keyPressEvent(QKeyEvent *event){
+    switch(event->key()){
+    case Qt::Key_0:
+        zeroClicked();
+        break;
+    case Qt::Key_1:
+        oneClicked();
+        break;
+    case Qt::Key_2:
+        twoClicked();
+        break;
+    case Qt::Key_3:
+        threeClicked();
+        break;
+    case Qt::Key_4:
+        fourClicked();
+        break;
+    case Qt::Key_5:
+        fiveClicked();
+        break;
+    case Qt::Key_6:
+        sixClicked();
+        break;
+    case Qt::Key_7:
+        sevenClicked();
+        break;
+    case Qt::Key_8:
+        eightClicked();
+        break;
+    case Qt::Key_9:
+        nineClicked();
+        break;
+    case Qt::Key_ParenLeft:
+        openParenClicked();
+        break;
+    case Qt::Key_ParenRight:
+        closeParenClicked();
+        break;
+    case Qt::Key_Asterisk:
+        multClicked();
+        break;
+    case Qt::Key_Slash:
+        divClicked();
+        break;
+    case Qt::Key_Minus:
+        subClicked();
+        break;
+    case Qt::Key_Equal:
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        evaluate();
+        break;
+    case Qt::Key_Plus:
+        addClicked();
+        break;
+    case Qt::Key_Backspace:
+        eraseClicked();
+        break;
+    case Qt::Key_Period:
+    case Qt::Key_periodcentered:
+        dotClicked();
+        break;
+    case Qt::Key_H:
+        histClicked();
+        break;
+    case Qt::Key_A:
+        ansClicked();
+        break;
+    case Qt::Key_C:
+        clearResult();
+        break;
+    }
 }

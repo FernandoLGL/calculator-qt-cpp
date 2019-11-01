@@ -58,5 +58,6 @@ private:
 private:
     void buttonClicked(const QString &number);
     bool lastIsOperator();
+    void keyPressEvent(QKeyEvent *event);
 };
 #endif // CALCULATOR_H
