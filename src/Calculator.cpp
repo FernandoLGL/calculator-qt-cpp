@@ -1,7 +1,7 @@
 #include "Calculator.h"
 #include "ui_Calculator.h"
 #include "exprtk.hpp"
-#include <QDebug>
+//#include <QDebug>
 #include <QKeyEvent>
 #include <QMessageBox>
 
@@ -70,7 +70,7 @@ void Calculator::evaluate(){
 
     std::string expression_string = parseExpression(ui->resultado->text()).toStdString();
 
-    qDebug() << "Expressao passada: " << QString::fromStdString(expression_string);
+    //qDebug() << "Expressao passada: " << QString::fromStdString(expression_string);
     expression_t expression;
 
     QString tmp = ui->resultado->text();
@@ -181,7 +181,7 @@ void Calculator::sqrtClicked(){
 
 void Calculator::helpClicked()
 {
-    QMessageBox::about(this, "DON'T PANIC!", "Shortcuts: \n\nS - Sqrt(Square Root)\nA - ANS (last answer)\nC - Clear\nH - History\n");
+    QMessageBox::about(this, "DON'T PANIC!", "Shortcuts: \n\nS - Sqrt(Square Root)\nA - ANS (last answer)\nC - Clear\nH - History\nP - this help window (stands for Panic)");
 }
 
 void Calculator::powerClicked()
@@ -238,7 +238,7 @@ void Calculator::eraseClicked(){
 }
 
 void Calculator::keyPressEvent(QKeyEvent *event){
-    qDebug() << event->key();
+    //qDebug() << event->key();
     switch(event->key()){
     case Qt::Key_0:
         zeroClicked();
@@ -314,6 +314,9 @@ void Calculator::keyPressEvent(QKeyEvent *event){
         break;
     case Qt::Key_S:
         sqrtClicked();
+        break;
+    case Qt::Key_P:
+        helpClicked();
         break;
     }
 }
