@@ -35,6 +35,7 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->pushButton_openParen, &QPushButton::clicked, this, &Calculator::openParenClicked);
     connect(ui->pushButton_closeParen, &QPushButton::clicked, this, &Calculator::closeParenClicked);
     connect (ui->pushButton_power, &QPushButton::clicked, this, &Calculator::powerClicked);
+    connect(ui->pushButton_sqrt, &QPushButton::clicked, this, &Calculator::sqrtClicked);
 }
 
 Calculator::~Calculator()
@@ -54,6 +55,7 @@ void Calculator::histClicked(){
 
 QString parseExpression(QString expression){
     expression.replace('x','*');
+    expression.replace("(sqrt)", "^(1/2)");
     return expression;
 }
 
@@ -66,6 +68,7 @@ void Calculator::evaluate(){
 
     std::string expression_string = parseExpression(ui->resultado->text()).toStdString();
 
+    qDebug() << "Expressao pasada: " << QString::fromStdString(expression_string);
     expression_t expression;
 
     QString tmp = ui->resultado->text();
@@ -167,6 +170,13 @@ void Calculator::closeParenClicked(){
     buttonClicked(")");
 }
 
+void Calculator::sqrtClicked(){
+    if(lastIsOperator()) return;
+    // Operations can't be the first character
+    if(ui->resultado->text().isEmpty() || m_state == INIT || m_state == RESULT) return;
+    buttonClicked("(sqrt)");
+}
+
 void Calculator::powerClicked()
 {
     if(lastIsOperator()) return;
@@ -200,7 +210,7 @@ void Calculator::multClicked(){
 }
 bool Calculator::lastIsOperator(){
     // Regex of the operators
-    QRegExp rx("[\\^x+/-]");
+    QRegExp rx("[\\(sqrt\\)\\^x+/-]");
     // right(1) is the same as returning the last character (QChar) as a QString
     if(rx.exactMatch(ui->resultado->text().right(1)))
         return true;
@@ -294,6 +304,9 @@ void Calculator::keyPressEvent(QKeyEvent *event){
         break;
     case Qt::Key_Dead_Circumflex:
         powerClicked();
+        break;
+    case Qt::Key_S:
+        sqrtClicked();
         break;
     }
 }
