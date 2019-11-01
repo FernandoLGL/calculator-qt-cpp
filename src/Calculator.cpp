@@ -2,6 +2,7 @@
 #include "ui_Calculator.h"
 #include "exprtk.hpp"
 #include <QDebug>
+#include <QKeyEvent>
 
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
@@ -51,13 +52,15 @@ void Calculator::histClicked(){
 }
 
 QString parseExpression(QString expression){
-    expression.replace('X','*');
+    expression.replace('x','*');
     return expression;
 }
 
 void Calculator::evaluate(){
     using expression_t = exprtk::expression<double>;
     using parser_t = exprtk::parser<double>;
+
+    if(m_state == ANS) ui->resultado->setText(ui->resultado->text().replace("ANS", m_lastResult));
 
     std::string expression_string = parseExpression(ui->resultado->text()).toStdString();
 
@@ -87,6 +90,8 @@ void Calculator::evaluate(){
 
 void Calculator::buttonClicked(const QString &textOnButton){
     QString previous = ui->resultado->text();
+    if (m_state == ANS)
+        ui->resultado->setText(previous.replace("ANS",m_lastResult));
     if(m_state == INIT || m_state == RESULT || m_state == ERROR){
         ui->resultado->setText(textOnButton);
         m_state = INPUTTING;
@@ -97,44 +102,60 @@ void Calculator::buttonClicked(const QString &textOnButton){
 }
 
 void Calculator::ansClicked(){
+    QString previous = ui->resultado->text();
     if(m_state == ERROR || m_state == INIT) return;
-    ui->resultado->setText(m_lastResult);
+    if (m_state == RESULT)
+        ui->resultado->setText("ANS");
+    else
+        ui->resultado->setText(previous+"ANS");
     m_state = ANS;
 }
 
 void Calculator::dotClicked(){
+    // There can't be two dots next to each other
+    if(ui->resultado->text().back() == '.') return;
     buttonClicked(".");
 }
 
 void Calculator::oneClicked(){
+    if (m_state == ANS) return;
     buttonClicked("1");
 }
 
 void Calculator::twoClicked(){
+    if (m_state == ANS) return;
     buttonClicked("2");
 }
 void Calculator::threeClicked(){
+    if (m_state == ANS) return;
     buttonClicked("3");
 }
 void Calculator::fourClicked(){
+    if (m_state == ANS) return;
     buttonClicked("4");
 }
 void Calculator::fiveClicked(){
+    if (m_state == ANS) return;
     buttonClicked("5");
 }
 void Calculator::sixClicked(){
+    if (m_state == ANS) return;
     buttonClicked("6");
 }
 void Calculator::sevenClicked(){
+    if (m_state == ANS) return;
     buttonClicked("7");
 }
 void Calculator::eightClicked(){
+    if (m_state == ANS) return;
     buttonClicked("8");
 }
 void Calculator::nineClicked(){
+    if (m_state == ANS) return;
     buttonClicked("9");
 }
 void Calculator::zeroClicked(){
+    if (m_state == ANS) return;
     buttonClicked("0");
 }
 void Calculator::openParenClicked(){
