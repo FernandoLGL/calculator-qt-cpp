@@ -380,6 +380,8 @@ void Calculator::keyPressEvent(QKeyEvent *event) {
                         break;
                 case Qt::Key_Period:
                 case Qt::Key_periodcentered:
+                //since there is no comma, when the user presses it, it's assumed s/he meant  "."
+                case Qt::Key_Comma:
                         dotClicked();
                         break;
                 case Qt::Key_H:
