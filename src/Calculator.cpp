@@ -5,8 +5,6 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
-// TODO: Erasing (sqrt)
-
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::Calculator),
@@ -79,12 +77,11 @@ void Calculator::clearResult() {
 }
 
 // When the user asks for their last expression and result, we have to show it
-// to them and reset the state to INIT (there's no HISTORY state, this might
-// change in the future)
+// to them and set the state to HISTORY
 void Calculator::histClicked() {
-        ui->resultado->setText("Last result: " + m_lastExpression + " = " +
+        ui->resultado->setText("H: " + m_lastExpression + " = " +
                                m_lastResult);
-        m_state = INIT;
+        m_state = HISTORY;
 }
 
 QString parseExpression(QString expression) {
@@ -98,8 +95,8 @@ QString parseExpression(QString expression) {
 
 void Calculator::evaluate() {
         // It doesn't make sense to evaluate at the beginning (or after history
-        // or any other modes that change the state to INIT)
-        if (m_state == INIT) return;
+        // or any modes that change the state to INIT)
+        if (m_state == INIT || m_state == HISTORY) return;
         using expression_t = exprtk::expression<double>;
         using parser_t = exprtk::parser<double>;
 
@@ -147,7 +144,7 @@ void Calculator::buttonClicked(const QString &textOnButton) {
                 ui->resultado->setText(previous.replace("ANS", m_lastResult));
         // Because whenever we are in an end or init state, we should overwrite
         // whatever is already on the screen with the button text
-        if (m_state == INIT || m_state == RESULT || m_state == ERROR) {
+        if (m_state == INIT || m_state == RESULT || m_state == ERROR || m_state == HISTORY) {
                 ui->resultado->setText(textOnButton);
                 m_state = INPUTTING;
                 // because when doing this we don't want to append the button
@@ -161,11 +158,13 @@ void Calculator::buttonClicked(const QString &textOnButton) {
 void Calculator::ansClicked() {
         QString previous = ui->resultado->text();
         // It doesn't make sense to ask for ANS when facing an ERROR or when
-        // just starting the calculator. This also applies to when the user
-        // displays History, which is the main reason why I want to make a
-        // HISTORY state in the future.
-        if (m_state == ERROR || m_state == INIT) return;
-        if (m_state == RESULT)
+        // the last result is unknown
+        if (m_state == ERROR || m_lastResult.isEmpty()) return;
+        // It doesn't make sense here to add the last result if we're concatenating to a number. But this only applies for INPUTTING state.
+        if (!lastIsOperator() && m_state == INPUTTING) return;
+        //it doesn't make sense to concatenate ANS to ANS itself.
+        if (previous.endsWith("ANS")) return;
+        if (m_state == RESULT || m_state == HISTORY || m_state == INIT)
                 ui->resultado->setText("ANS");
         else
                 ui->resultado->setText(previous + "ANS");
@@ -218,6 +217,9 @@ void Calculator::nineClicked() {
 }
 void Calculator::zeroClicked() {
         if (m_state == ANS) return;
+        QString previous = ui->resultado->text();
+        // it doesn't make sense to start your calculations with 00
+        if(previous == "0") return;
         buttonClicked("0");
 }
 void Calculator::openParenClicked() { buttonClicked("("); }
@@ -228,7 +230,7 @@ void Calculator::sqrtClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT)
+            m_state == RESULT || m_state == HISTORY)
                 return;
         buttonClicked("(sqrt)");
 }
@@ -244,7 +246,7 @@ void Calculator::powerClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT)
+            m_state == RESULT || m_state == HISTORY)
                 return;
         buttonClicked("^");
 }
@@ -252,7 +254,7 @@ void Calculator::addClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT)
+            m_state == RESULT || m_state == HISTORY)
                 return;
         buttonClicked("+");
 }
@@ -260,7 +262,7 @@ void Calculator::subClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT)
+            m_state == RESULT || m_state == HISTORY)
                 return;
         buttonClicked("-");
 }
@@ -268,7 +270,7 @@ void Calculator::divClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT)
+            m_state == RESULT || m_state == HISTORY)
                 return;
         buttonClicked("/");
 }
@@ -276,7 +278,7 @@ void Calculator::multClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT)
+            m_state == RESULT || m_state == HISTORY)
                 return;
         buttonClicked("x");
 }
@@ -294,13 +296,18 @@ void Calculator::eraseClicked() {
         if (ui->resultado->text().isEmpty()) return;
         // We can't erase the error message nor does it make sense to erase the
         // history or the initial 0.0
-        if (m_state == INIT || m_state == ERROR) return;
+        if (m_state == INIT || m_state == ERROR || m_state == HISTORY) return;
         QString previous = ui->resultado->text();
-        // What really erases (erasing the last character)
-        // Improve this to erase the whole (sqrt) if its the last string.
-        ui->resultado->setText(previous.chopped(1));
-        // If we erase the last number, we are back to square one.
-        if (ui->resultado->text().isEmpty()) {
+        // If the next in line to be erased is (sqrt), we have to remove it entirely, not just the closing parentheses.
+        if(previous.endsWith("(sqrt)"))
+            //6 is the length of (sqrt)
+            ui->resultado->setText(previous.chopped(6));
+        else
+            ui->resultado->setText(previous.chopped(1));
+        // we have to update our variable
+        previous = ui->resultado->text();
+        // If we erase the only remaining number, we are back to square one.
+        if (previous.isEmpty()) {
                 ui->resultado->setText("0.0");
                 m_state = INIT;
                 return;

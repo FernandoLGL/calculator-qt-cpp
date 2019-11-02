@@ -23,6 +23,7 @@ class Calculator : public QMainWindow {
                 RESULT,
                 ANS,
                 ERROR,
+                HISTORY,
         };
 
        private slots:
