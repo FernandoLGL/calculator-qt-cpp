@@ -231,9 +231,11 @@ void Calculator::sqrtClicked() {
         // We can't write ^^, ++, --...
         if (lastIsOperator()) return;
         // Operations can't be the first character
-        if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT || m_state == HISTORY)
+        if (ui->resultado->text().isEmpty() || m_state == INIT)
                 return;
+        if(m_state == RESULT || m_state == HISTORY){
+            ansClicked();
+        }
         buttonClicked("(sqrt)");
 }
 
@@ -247,41 +249,51 @@ void Calculator::helpClicked() {
 void Calculator::powerClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
-        if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT || m_state == HISTORY)
+        if (ui->resultado->text().isEmpty() || m_state == INIT)
                 return;
+        if(m_state == RESULT || m_state == HISTORY){
+            ansClicked();
+        }
         buttonClicked("^");
 }
 void Calculator::addClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
-        if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT || m_state == HISTORY)
+        if (ui->resultado->text().isEmpty() || m_state == INIT)
                 return;
+        if(m_state == RESULT || m_state == HISTORY){
+            ansClicked();
+        }
         buttonClicked("+");
 }
 void Calculator::subClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
-        if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT || m_state == HISTORY)
+        if (ui->resultado->text().isEmpty() || m_state == INIT)
                 return;
+        if(m_state == RESULT || m_state == HISTORY){
+            ansClicked();
+        }
         buttonClicked("-");
 }
 void Calculator::divClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
-        if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT || m_state == HISTORY)
+        if (ui->resultado->text().isEmpty() || m_state == INIT)
                 return;
+        if(m_state == RESULT || m_state == HISTORY){
+            ansClicked();
+        }
         buttonClicked("/");
 }
 void Calculator::multClicked() {
         if (lastIsOperator()) return;
         // Operations can't be the first character
-        if (ui->resultado->text().isEmpty() || m_state == INIT ||
-            m_state == RESULT || m_state == HISTORY)
+        if (ui->resultado->text().isEmpty() || m_state == INIT)
                 return;
+        if(m_state == RESULT || m_state == HISTORY){
+            ansClicked();
+        }
         buttonClicked("x");
 }
 bool Calculator::lastIsOperator() {
