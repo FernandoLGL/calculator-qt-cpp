@@ -230,7 +230,7 @@ void Calculator::closeParenClicked() { buttonClicked(")"); }
 void Calculator::sqrtClicked() {
         // We can't write ^^, ++, --...
         if (lastIsOperator()) return;
-        // Operations can't be the first character
+        // This operation can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT)
                 return;
         if(m_state == RESULT || m_state == HISTORY){
@@ -248,7 +248,7 @@ void Calculator::helpClicked() {
 
 void Calculator::powerClicked() {
         if (lastIsOperator()) return;
-        // Operations can't be the first character
+        // This operation can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT)
                 return;
         if(m_state == RESULT || m_state == HISTORY){
@@ -258,9 +258,6 @@ void Calculator::powerClicked() {
 }
 void Calculator::addClicked() {
         if (lastIsOperator()) return;
-        // Operations can't be the first character
-        if (ui->resultado->text().isEmpty() || m_state == INIT)
-                return;
         if(m_state == RESULT || m_state == HISTORY){
             ansClicked();
         }
@@ -268,9 +265,6 @@ void Calculator::addClicked() {
 }
 void Calculator::subClicked() {
         if (lastIsOperator()) return;
-        // Operations can't be the first character
-        if (ui->resultado->text().isEmpty() || m_state == INIT)
-                return;
         if(m_state == RESULT || m_state == HISTORY){
             ansClicked();
         }
@@ -278,7 +272,7 @@ void Calculator::subClicked() {
 }
 void Calculator::divClicked() {
         if (lastIsOperator()) return;
-        // Operations can't be the first character
+        // This operation can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT)
                 return;
         if(m_state == RESULT || m_state == HISTORY){
@@ -288,9 +282,9 @@ void Calculator::divClicked() {
 }
 void Calculator::multClicked() {
         if (lastIsOperator()) return;
-        // Operations can't be the first character
+        // This operation can't be the first character
         if (ui->resultado->text().isEmpty() || m_state == INIT)
-                return;
+            return;
         if(m_state == RESULT || m_state == HISTORY){
             ansClicked();
         }
