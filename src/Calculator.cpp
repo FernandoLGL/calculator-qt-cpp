@@ -290,13 +290,17 @@ void Calculator::multClicked() {
         }
         buttonClicked("x");
 }
-bool Calculator::lastIsOperator() {
-        // Regex of the operators
-        QRegExp rx("[\\(sqrt\\)\\^x+/-]");
-        // right(1) is the same as returning the last character (QChar) as a
-        // QString
-        if (rx.exactMatch(ui->resultado->text().right(1))) return true;
-        return false;
+bool Calculator::lastIsOperator()
+{
+    if (ui->resultado->text().right(6) == "(sqrt)")
+        return true;
+    // Regex of the operators
+    QRegExp rx("[\\^x+/-]");
+    // right(1) is the same as returning the last character (QChar) as a
+    // QString
+    if (rx.exactMatch(ui->resultado->text().right(1)))
+        return true;
+    return false;
 }
 void Calculator::eraseClicked() {
         // if we don't specify what happens when it's empty, the program
