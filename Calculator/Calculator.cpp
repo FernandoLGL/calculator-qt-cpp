@@ -1,6 +1,6 @@
 #include "Calculator.h"
 
-#include "exprtk.hpp"
+#include "../extlib/exprtk.hpp"
 #include "ui_Calculator.h"
 //#include <QDebug>
 #include <QKeyEvent>

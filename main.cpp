@@ -1,6 +1,6 @@
 #include <QApplication>
 
-#include "Calculator.h"
+#include "Calculator/Calculator.h"
 
 int main(int argc, char* argv[])
 {

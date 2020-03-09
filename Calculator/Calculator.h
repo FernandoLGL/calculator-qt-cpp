@@ -18,6 +18,7 @@ class Calculator : public QMainWindow
   Calculator(QWidget *parent = nullptr);
   ~Calculator();
 
+  // I should work to get rid of this or just make this better
   // To keep track of the state of the calculator
   enum State
   {
