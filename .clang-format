@@ -26,10 +26,9 @@ BreakBeforeTernaryOperators: 'false'
 BreakConstructorInitializers: AfterColon
 BreakStringLiterals: 'true'
 ColumnLimit: '100'
-ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
 Cpp11BracedListStyle: 'false'
 Language: Cpp
-NamespaceIndentation: All
+NamespaceIndentation: None
 SortIncludes: 'true'
 SortUsingDeclarations: 'false'
 SpaceAfterCStyleCast: 'false'
