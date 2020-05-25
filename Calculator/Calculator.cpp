@@ -1,44 +1,13 @@
 #include "Calculator.h"
 
-#include "../extlib/exprtk.hpp"
-#include "ui_Calculator.h"
-//#include <QDebug>
 #include <QKeyEvent>
 #include <QMessageBox>
 
-Calculator::Calculator(QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::Calculator), m_state(INIT), m_lastExpression(), m_lastResult()
-{
-  ui->setupUi(this);
+#include "ClickHandler/ClickHandler.h"
+#include "KeypressHandler/KeypressHandler.h"
+#include "ui_Calculator.h"
 
-  // Connecting the appropriate functions to the appropriate objects so
-  // that I can use my own functions
-  connect(ui->pushButton_1, &QPushButton::clicked, this, &Calculator::oneClicked);
-  connect(ui->pushButton_2, &QPushButton::clicked, this, &Calculator::twoClicked);
-  connect(ui->pushButton_3, &QPushButton::clicked, this, &Calculator::threeClicked);
-  connect(ui->pushButton_4, &QPushButton::clicked, this, &Calculator::fourClicked);
-  connect(ui->pushButton_5, &QPushButton::clicked, this, &Calculator::fiveClicked);
-  connect(ui->pushButton_6, &QPushButton::clicked, this, &Calculator::sixClicked);
-  connect(ui->pushButton_7, &QPushButton::clicked, this, &Calculator::sevenClicked);
-  connect(ui->pushButton_8, &QPushButton::clicked, this, &Calculator::eightClicked);
-  connect(ui->pushButton_9, &QPushButton::clicked, this, &Calculator::nineClicked);
-  connect(ui->pushButton_0, &QPushButton::clicked, this, &Calculator::zeroClicked);
-  connect(ui->pushButton_adicao, &QPushButton::clicked, this, &Calculator::addClicked);
-  connect(ui->pushButton_divisao, &QPushButton::clicked, this, &Calculator::divClicked);
-  connect(ui->pushButton_subtracao, &QPushButton::clicked, this, &Calculator::subClicked);
-  connect(ui->pushButton_multiplicacao, &QPushButton::clicked, this, &Calculator::multClicked);
-  connect(ui->pushButton_igual, &QPushButton::clicked, this, &Calculator::evaluate);
-  connect(ui->pushButton_Clear, &QPushButton::clicked, this, &Calculator::clearResult);
-  connect(ui->pushButton_dot, &QPushButton::clicked, this, &Calculator::dotClicked);
-  connect(ui->pushButton_ans, &QPushButton::clicked, this, &Calculator::ansClicked);
-  connect(ui->pushButton_hist, &QPushButton::clicked, this, &Calculator::histClicked);
-  connect(ui->pushButton_erase, &QPushButton::clicked, this, &Calculator::eraseClicked);
-  connect(ui->pushButton_openParen, &QPushButton::clicked, this, &Calculator::openParenClicked);
-  connect(ui->pushButton_closeParen, &QPushButton::clicked, this, &Calculator::closeParenClicked);
-  connect(ui->pushButton_power, &QPushButton::clicked, this, &Calculator::powerClicked);
-  connect(ui->pushButton_sqrt, &QPushButton::clicked, this, &Calculator::sqrtClicked);
-  connect(ui->pushButton_help, &QPushButton::clicked, this, &Calculator::helpClicked);
-}
+Calculator::Calculator(QWidget *parent) : QMainWindow(parent), ui(new Ui::Calculator) { ui->setupUi(this); }
 
 Calculator::~Calculator() { delete ui; }
 
@@ -307,41 +276,6 @@ void Calculator::eraseClicked()
   m_state = INPUTTING;
 }
 
-void Calculator::keyPressEvent(QKeyEvent *event)
-{
-  // qDebug() << event->key();
-  // Long list of what to do when facing a key press
-  switch (event->key())
-  {
-    case Qt::Key_0: zeroClicked(); break;
-    case Qt::Key_1: oneClicked(); break;
-    case Qt::Key_2: twoClicked(); break;
-    case Qt::Key_3: threeClicked(); break;
-    case Qt::Key_4: fourClicked(); break;
-    case Qt::Key_5: fiveClicked(); break;
-    case Qt::Key_6: sixClicked(); break;
-    case Qt::Key_7: sevenClicked(); break;
-    case Qt::Key_8: eightClicked(); break;
-    case Qt::Key_9: nineClicked(); break;
-    case Qt::Key_ParenLeft: openParenClicked(); break;
-    case Qt::Key_ParenRight: closeParenClicked(); break;
-    case Qt::Key_Asterisk: multClicked(); break;
-    case Qt::Key_Slash: divClicked(); break;
-    case Qt::Key_Minus: subClicked(); break;
-    case Qt::Key_Equal:
-    case Qt::Key_Enter:
-    case Qt::Key_Return: evaluate(); break;
-    case Qt::Key_Plus: addClicked(); break;
-    case Qt::Key_Backspace: eraseClicked(); break;
-    case Qt::Key_Period:
-    case Qt::Key_periodcentered:
-    // since there is no comma, when the user presses it, it's assumed s/he meant  "."
-    case Qt::Key_Comma: dotClicked(); break;
-    case Qt::Key_H: histClicked(); break;
-    case Qt::Key_A: ansClicked(); break;
-    case Qt::Key_C: clearResult(); break;
-    case Qt::Key_Dead_Circumflex: powerClicked(); break;
-    case Qt::Key_S: sqrtClicked(); break;
-    case Qt::Key_P: helpClicked(); break;
-  }
-}
+void Calculator::keyPressEvent(QKeyEvent *event) { KeypressHandler::keyPress(event->key(), ui); }
+
+void Calculator::on_pushButton_0_clicked() { ClickHandler::zeroButtonPress(ui); }
