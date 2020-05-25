@@ -17,13 +17,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ClickHandler/ClickHandler.cpp \
+    Evaluator/Evaluator.cpp \
+    KeypressHandler/KeypressHandler.cpp \
     main.cpp \
     Calculator/Calculator.cpp
-    MathController/MathController.cpp
 
 HEADERS += \
-    Calculator/Calculator.h
-    MathController/MathController.h
+    Calculator/Calculator.h \
+    ClickHandler/ClickHandler.h \
+    Evaluator/Evaluator.h \
+    KeypressHandler/KeypressHandler.h
 
 FORMS += \
     gui/Calculator.ui

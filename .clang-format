@@ -25,7 +25,7 @@ BreakBeforeBraces: Allman
 BreakBeforeTernaryOperators: 'false'
 BreakConstructorInitializers: AfterColon
 BreakStringLiterals: 'true'
-ColumnLimit: '100'
+ColumnLimit: '120'
 Cpp11BracedListStyle: 'false'
 Language: Cpp
 NamespaceIndentation: None
