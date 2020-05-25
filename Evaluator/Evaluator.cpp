@@ -1,6 +1,4 @@
 #include "Evaluator.h"
 
-Evaluator::Evaluator()
-{
-
-}
+#include "../extlib/exprtk.hpp"
+#include "Calculator/Calculator.h"
