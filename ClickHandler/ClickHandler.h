@@ -6,6 +6,8 @@ namespace Ui
 class Calculator;
 }
 
+class QWidget;
+
 // Class responsible for what happens when a user clicks a button
 class ClickHandler
 {
@@ -27,13 +29,13 @@ class ClickHandler
   static void multButtonPress(Ui::Calculator* ui);
   static void dotButtonPress(Ui::Calculator* ui);
   static void ansButtonPress(Ui::Calculator* ui);
-  static void histButtonPress(Ui::Calculator* ui);
+  static void histButtonPress(QWidget* calculator);
   static void eraseButtonPress(Ui::Calculator* ui);
   static void openParenButtonPress(Ui::Calculator* ui);
   static void closeParenButtonPress(Ui::Calculator* ui);
   static void powerButtonPress(Ui::Calculator* ui);
   static void sqrtButtonPress(Ui::Calculator* ui);
-  static void helpButtonPress(Ui::Calculator* ui);
+  static void helpButtonPress(QWidget* calculator);
   // clicking the "=" button
   static void evaluateButtonPress(Ui::Calculator* ui);
   static void clearResultButtonPress(Ui::Calculator* ui);

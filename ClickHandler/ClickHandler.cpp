@@ -35,7 +35,7 @@ void ClickHandler::dotButtonPress(Ui::Calculator *ui) { Evaluator::dotButtonPres
 
 void ClickHandler::ansButtonPress(Ui::Calculator *ui) { Evaluator::ansButtonPress(ui); }
 
-void ClickHandler::histButtonPress(Ui::Calculator *ui) { Evaluator::histButtonPress(ui); }
+void ClickHandler::histButtonPress(QWidget *calculator) { Evaluator::histButtonPress(calculator); }
 
 void ClickHandler::eraseButtonPress(Ui::Calculator *ui) { Evaluator::eraseButtonPress(ui); }
 
@@ -47,7 +47,7 @@ void ClickHandler::powerButtonPress(Ui::Calculator *ui) { Evaluator::powerButton
 
 void ClickHandler::sqrtButtonPress(Ui::Calculator *ui) { Evaluator::sqrtButtonPress(ui); }
 
-void ClickHandler::helpButtonPress(Ui::Calculator *ui) { Evaluator::helpButtonPress(ui); }
+void ClickHandler::helpButtonPress(QWidget *calculator) { Evaluator::helpButtonPress(calculator); }
 
 void ClickHandler::evaluateButtonPress(Ui::Calculator *ui) { Evaluator::evaluateButtonPress(ui); }
 

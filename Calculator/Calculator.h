@@ -22,6 +22,54 @@ class Calculator : public QMainWindow
   private slots:
   void on_pushButton_0_clicked();
 
+  void on_pushButton_dot_clicked();
+
+  void on_pushButton_1_clicked();
+
+  void on_pushButton_2_clicked();
+
+  void on_pushButton_3_clicked();
+
+  void on_pushButton_4_clicked();
+
+  void on_pushButton_5_clicked();
+
+  void on_pushButton_6_clicked();
+
+  void on_pushButton_7_clicked();
+
+  void on_pushButton_8_clicked();
+
+  void on_pushButton_9_clicked();
+
+  void on_pushButton_add_clicked();
+
+  void on_pushButton_ans_clicked();
+
+  void on_pushButton_clear_clicked();
+
+  void on_pushButton_closeParen_clicked();
+
+  void on_pushButton_div_clicked();
+
+  void on_pushButton_equals_clicked();
+
+  void on_pushButton_erase_clicked();
+
+  void on_pushButton_help_clicked();
+
+  void on_pushButton_hist_clicked();
+
+  void on_pushButton_mult_clicked();
+
+  void on_pushButton_openParen_clicked();
+
+  void on_pushButton_power_clicked();
+
+  void on_pushButton_sqrt_clicked();
+
+  void on_pushButton_sub_clicked();
+
   private:
   Ui::Calculator *ui;
 

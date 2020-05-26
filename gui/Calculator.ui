@@ -3752,7 +3752,7 @@
      </widget>
     </item>
     <item row="6" column="3">
-     <widget class="QPushButton" name="pushButton_divisao">
+     <widget class="QPushButton" name="pushButton_div">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -4692,7 +4692,7 @@
      </widget>
     </item>
     <item row="4" column="4">
-     <widget class="QPushButton" name="pushButton_subtracao">
+     <widget class="QPushButton" name="pushButton_sub">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -5632,7 +5632,7 @@
      </widget>
     </item>
     <item row="4" column="3">
-     <widget class="QPushButton" name="pushButton_adicao">
+     <widget class="QPushButton" name="pushButton_add">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -6102,7 +6102,7 @@
      </widget>
     </item>
     <item row="3" column="3">
-     <widget class="QPushButton" name="pushButton_Clear">
+     <widget class="QPushButton" name="pushButton_clear">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -8451,7 +8451,7 @@
      </widget>
     </item>
     <item row="6" column="4">
-     <widget class="QPushButton" name="pushButton_multiplicacao">
+     <widget class="QPushButton" name="pushButton_mult">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -8921,7 +8921,7 @@
      </widget>
     </item>
     <item row="7" column="2">
-     <widget class="QPushButton" name="pushButton_igual">
+     <widget class="QPushButton" name="pushButton_equals">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -11766,7 +11766,7 @@
      </widget>
     </item>
     <item row="0" column="0" colspan="5">
-     <widget class="QLineEdit" name="resultado">
+     <widget class="QLineEdit" name="display">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
         <horstretch>0</horstretch>

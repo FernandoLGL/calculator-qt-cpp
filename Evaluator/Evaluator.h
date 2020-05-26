@@ -8,13 +8,13 @@ namespace Ui
 class Calculator;
 }
 
+class QWidget;
+
 // Class responsible to what happens when the user presses ANY button
 class Evaluator
 {
-  QString m_lastResult;
-  QString m_lastExpression;
-  // Whether the next key press erases everything or not
-  bool nextKeyPressErases = false;
+  static QString m_lastResult;
+  static QString m_lastExpression;
 
   public:
   Evaluator() = delete;
@@ -33,21 +33,22 @@ class Evaluator
   static void divButtonPress(Ui::Calculator* ui);
   static void multButtonPress(Ui::Calculator* ui);
   static void dotButtonPress(Ui::Calculator* ui);
-  static void ansButtonPress(Ui::Calculator* ui);
-  static void histButtonPress(Ui::Calculator* ui);
-  static void eraseButtonPress(Ui::Calculator* ui);
   static void openParenButtonPress(Ui::Calculator* ui);
   static void closeParenButtonPress(Ui::Calculator* ui);
   static void powerButtonPress(Ui::Calculator* ui);
   static void sqrtButtonPress(Ui::Calculator* ui);
-  static void helpButtonPress(Ui::Calculator* ui);
+  static void ansButtonPress(Ui::Calculator* ui);
+  static void histButtonPress(QWidget* calculator);
+  static void eraseButtonPress(Ui::Calculator* ui);
+  static void helpButtonPress(QWidget* calculator);
   static void evaluateButtonPress(Ui::Calculator* ui);
   static void clearResultButtonPress(Ui::Calculator* ui);
 
   // Helper functions
   private:
-  void buttonPressed(const QString& text, Ui::Calculator* ui);
-  void parseExpression(Ui::Calculator* ui);
+  static void buttonPressed(const QString& text, Ui::Calculator* ui);
+  static bool lastIsBinaryOperator(Ui::Calculator* ui);
+  static void parseExpression(QString& expression);
 };
 
 #endif  // EVALUATOR_H

@@ -3,7 +3,7 @@
 #include "Calculator/Calculator.h"
 #include "Evaluator/Evaluator.h"
 
-void KeypressHandler::keyPress(int key, Ui::Calculator* ui)
+void KeypressHandler::keyPress(int key, Ui::Calculator* ui, QWidget* calculator)
 {
   switch (key)
   {
@@ -31,11 +31,11 @@ void KeypressHandler::keyPress(int key, Ui::Calculator* ui)
     case Qt::Key_periodcentered:
     // since there is no comma, when the user presses it, it's assumed s/he meant  "."
     case Qt::Key_Comma: Evaluator::dotButtonPress(ui); break;
-    case Qt::Key_H: Evaluator::histButtonPress(ui); break;
+    case Qt::Key_H: Evaluator::histButtonPress(calculator); break;
     case Qt::Key_A: Evaluator::ansButtonPress(ui); break;
     case Qt::Key_C: Evaluator::clearResultButtonPress(ui); break;
     case Qt::Key_Dead_Circumflex: Evaluator::powerButtonPress(ui); break;
     case Qt::Key_S: Evaluator::sqrtButtonPress(ui); break;
-    case Qt::Key_P: Evaluator::helpButtonPress(ui); break;
+    case Qt::Key_P: Evaluator::helpButtonPress(calculator); break;
   }
 }
