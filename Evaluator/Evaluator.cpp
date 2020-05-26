@@ -65,7 +65,7 @@ void Evaluator::ansButtonPress(Ui::Calculator *ui)
 void Evaluator::histButtonPress(QWidget *calculator)
 {
   // This will display a new window showing the last expression and result
-  QString history;
+  QString history = m_lastExpression + " = " + m_lastResult;
   QMessageBox::about(calculator, "History", history);
 }
 
