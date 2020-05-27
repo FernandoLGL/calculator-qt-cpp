@@ -48,6 +48,14 @@ void Evaluator::sqrtButtonPress(Ui::Calculator *ui) { buttonPressed("^(1/2)", ui
 
 void Evaluator::ansButtonPress(Ui::Calculator *ui)
 {
+  /*
+   * Expected behavior:
+   * If what is displayed is the "cleared" state (0.0), we can just replace it by "ANS" so it can be parsed later.
+   * If the last character is a binary operator, we may just append "ANS" so that it can be included in the
+   * calculations.
+   * Otherwise, we will append a multiplication by "ANS", which replicates the behavior of most calculators out there.
+   * e.g.: if ANS is 2, "45ANS" means "45 x ANS" which is evaluated to "90".
+   */
   QString previous = ui->display->text();
   if (previous == "0.0")
   {

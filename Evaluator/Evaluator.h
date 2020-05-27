@@ -46,8 +46,17 @@ class Evaluator
 
   // Helper functions
   private:
+  /**
+   * @brief buttonPressed defines a generic behavior for buttons that add text to the display
+   * @param text the text to be added to the display
+   * @param ui Qt's calculator UI object
+   */
   static void buttonPressed(const QString& text, Ui::Calculator* ui);
   static bool lastIsBinaryOperator(Ui::Calculator* ui);
+  /**
+   * @brief parseExpression parses the display text into a format that exprtk can understand
+   * @param expression expression to be parsed
+   */
   static void parseExpression(QString& expression);
 };
 
