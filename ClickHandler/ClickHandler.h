@@ -8,7 +8,7 @@ class Calculator;
 
 class QWidget;
 
-// Class responsible for what happens when a user clicks a button
+// Class responsible for what happens when the user clicks a button
 class ClickHandler
 {
   public:

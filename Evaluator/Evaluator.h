@@ -10,7 +10,7 @@ class Calculator;
 
 class QWidget;
 
-// Class responsible to what happens when the user presses ANY button
+// Class responsible to what happens when the user interacts with ANY button
 class Evaluator
 {
   static QString m_lastResult;

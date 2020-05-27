@@ -64,6 +64,7 @@ void Evaluator::ansButtonPress(Ui::Calculator *ui)
 
 void Evaluator::histButtonPress(QWidget *calculator)
 {
+  // In the future, there shall be a HistoryController which shall allow for longer history
   // This will display a new window showing the last expression and result
   QString history = m_lastExpression + " = " + m_lastResult;
   QMessageBox::about(calculator, "History", history);
@@ -160,8 +161,7 @@ bool Evaluator::lastIsBinaryOperator(Ui::Calculator *ui)
 {
   // Regex of the binary operators
   QRegExp rx("[\\^x+/-]");
-  // right(1) is the same as returning the last character (QChar) as a
-  // QString
+  // right(1) is the same as returning the last character (QChar) as a QString
   if (rx.exactMatch(ui->display->text().right(1))) return true;
   return false;
 }
