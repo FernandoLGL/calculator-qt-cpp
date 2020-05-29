@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     ClickHandler/ClickHandler.cpp \
     Evaluator/Evaluator.cpp \
+    HistoryController/HistoryController.cpp \
     KeypressHandler/KeypressHandler.cpp \
     main.cpp \
     Calculator/Calculator.cpp
@@ -26,7 +27,9 @@ SOURCES += \
 HEADERS += \
     Calculator/Calculator.h \
     ClickHandler/ClickHandler.h \
+    Constants/Constants.h \
     Evaluator/Evaluator.h \
+    HistoryController/HistoryController.h \
     KeypressHandler/KeypressHandler.h
 
 FORMS += \
