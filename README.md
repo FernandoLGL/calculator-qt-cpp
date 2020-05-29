@@ -4,5 +4,3 @@
 
 ![](img/ExpressionTyped.png)
 
-![](img/LastExpressionAndResult.png)
-
