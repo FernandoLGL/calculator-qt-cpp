@@ -3,10 +3,8 @@
 #include <QMessageBox>
 
 #include "../extlib/exprtk.hpp"
+#include "HistoryController/HistoryController.h"
 #include "ui_Calculator.h"
-
-QString Evaluator::m_lastResult;
-QString Evaluator::m_lastExpression;
 
 void Evaluator::oneButtonPress(Ui::Calculator *ui) { buttonPressed("1", ui); }
 
@@ -72,9 +70,7 @@ void Evaluator::ansButtonPress(Ui::Calculator *ui)
 
 void Evaluator::histButtonPress(QWidget *calculator)
 {
-  // In the future, there shall be a HistoryController which shall allow for longer history
-  // This will display a new window showing the last expression and result
-  QString history = m_lastExpression + " = " + m_lastResult;
+  QString history = HistoryController::getHistory();
   QMessageBox::about(calculator, "History", history);
 }
 
@@ -114,7 +110,7 @@ void Evaluator::evaluateButtonPress(Ui::Calculator *ui)
   using parser_t     = exprtk::parser<double>;
 
   QString previous = ui->display->text();
-  ui->display->setText(previous.replace("ANS", m_lastResult));
+  ui->display->setText(previous.replace("ANS", HistoryController::getLastResult()));
   parseExpression(previous);
 
   std::string expression_string = previous.toStdString();
@@ -139,8 +135,10 @@ void Evaluator::evaluateButtonPress(Ui::Calculator *ui)
     return;
   }
 
-  m_lastExpression = exp;
-  m_lastResult     = QString::number(result);
+  HistoryController::setLastExpression(exp);
+  HistoryController::setLastResult(QString::number(result));
+
+  HistoryController::addToHistory();
 }
 
 void Evaluator::clearResultButtonPress(Ui::Calculator *ui)
@@ -161,7 +159,7 @@ void Evaluator::buttonPressed(const QString &text, Ui::Calculator *ui)
     return;
   }
   // Look for ANS and replace with last result so it looks nicer
-  ui->display->setText(previous.replace("ANS", m_lastResult));
+  ui->display->setText(previous.replace("ANS", HistoryController::getLastResult()));
   ui->display->setText(previous += text);
 }
 

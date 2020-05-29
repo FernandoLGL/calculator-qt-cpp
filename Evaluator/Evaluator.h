@@ -13,9 +13,6 @@ class QWidget;
 // Class responsible to what happens when the user interacts with ANY button
 class Evaluator
 {
-  static QString m_lastResult;
-  static QString m_lastExpression;
-
   public:
   Evaluator() = delete;
   static void oneButtonPress(Ui::Calculator* ui);
