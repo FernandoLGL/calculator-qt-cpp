@@ -1,5 +1,9 @@
 #include "HistoryController.h"
 
+// TODO: Consider making it so we only have to call something like "HistoryController::addToHistory(lastExpression,
+// result);" to add to history. Always considering the side effects that this may cause in the future; because one thing
+// that might change is the current way we check if the expression should be evaluated or not.
+
 std::array<QString, HISTORY_SIZE> HistoryController::m_historyText;
 int HistoryController::m_historyCounter = 0;
 QString HistoryController::m_lastResult;

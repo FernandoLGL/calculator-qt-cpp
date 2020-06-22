@@ -130,12 +130,14 @@ void Evaluator::evaluateButtonPress(Ui::Calculator *ui)
 
   expression_t expression;
 
-  // Because we want to keep track of the typed expression
-  QString exp = ui->display->text();
+  // Because we want to keep track of the typed expression so we can add it to history later on
+  QString lastExpression = ui->display->text();
 
   parser_t parser;
 
   double result{};
+
+  // if the expression was evaluated successfully
   if (parser.compile(expression_string, expression))
   {
     result = expression.value();
@@ -148,7 +150,7 @@ void Evaluator::evaluateButtonPress(Ui::Calculator *ui)
     return;
   }
 
-  HistoryController::setLastExpression(exp);
+  HistoryController::setLastExpression(lastExpression);
   HistoryController::setLastResult(QString::number(result));
 
   HistoryController::addToHistory();
