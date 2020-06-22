@@ -173,3 +173,21 @@ bool Evaluator::lastIsBinaryOperator(Ui::Calculator *ui)
 }
 
 void Evaluator::parseExpression(QString &expression) { expression.replace('x', '*'); }
+
+bool Evaluator::expressionIsANumber(QString &expression)
+{
+  // If there are no operators, then the expression must be a number
+  QRegExp rx("[\\^x+/-]");
+
+  foreach (const auto &c, expression)
+  {
+    if (rx.exactMatch(c)) return false;
+  }
+  return true;
+}
+
+bool Evaluator::expressionIsTheSame(QString &expression)
+{
+  if (HistoryController::getLastExpression() == expression) return true;
+  return false;
+}

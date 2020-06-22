@@ -55,6 +55,22 @@ class Evaluator
    * @param expression expression to be parsed
    */
   static void parseExpression(QString& expression);
+
+  /**
+   * @brief expressionIsANumber checks if the expression is just a number so there is no need to evaluate something like
+   * "81" and thus it never gets added in the history
+   * @param expression
+   * @return
+   */
+  static bool expressionIsANumber(QString& expression);
+
+  /**
+   * @brief expressionIsTheSame checks if the expression being evaluated is the same as the previously evaluated; so
+   * that we don't do it again and thus never add it to history
+   * @param expression
+   * @return
+   */
+  static bool expressionIsTheSame(QString& expression);
 };
 
 #endif  // EVALUATOR_H
