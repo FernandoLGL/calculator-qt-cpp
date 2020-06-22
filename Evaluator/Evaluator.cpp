@@ -110,6 +110,19 @@ void Evaluator::evaluateButtonPress(Ui::Calculator *ui)
   using parser_t     = exprtk::parser<double>;
 
   QString previous = ui->display->text();
+
+  if (expressionIsANumber(previous))
+    // in these cases we don't have to do anything since the result is already displayed on the screen (for example, 81
+    // = 81). And we don't want to add it to history either.
+    return;
+  else if (expressionIsTheSame(previous))
+  {
+    // if the expression is the same as the one that was evaluated before; we still want to show the result to the user,
+    // but we don't want to unnecessarily evaluate it and put it in the history.
+    ui->display->setText(HistoryController::getLastResult());
+    return;
+  }
+
   ui->display->setText(previous.replace("ANS", HistoryController::getLastResult()));
   parseExpression(previous);
 
